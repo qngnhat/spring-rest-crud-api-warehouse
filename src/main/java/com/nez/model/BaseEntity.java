@@ -29,15 +29,4 @@ public class BaseEntity implements Serializable {
 		return this.id == null;
 	}
 
-	protected Date createdTime;
-
-	protected Date updatedTime;
-
-	@PrePersist
-	protected void prePersist() {
-		if (this.createdTime == null)
-			createdTime = new Date();
-		if (this.updatedTime == null)
-			updatedTime = new Date();
-	}
 }
