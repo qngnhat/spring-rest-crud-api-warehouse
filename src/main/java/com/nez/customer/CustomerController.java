@@ -1,25 +1,33 @@
 package com.nez.customer;
 
-import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class CustomerController {
 	private static final String WIEWS_CUSTOMER_CREATE_OR_UPDATE_FORM = "customers/createOrUpdateCustomerForm";
 	
-	private final CustomerRepository customerRepository;
+	@Autowired
+	CustomerRepository customerRepo;
 	
 	public CustomerController(CustomerRepository nezService) {
-		this.customerRepository = nezService;
+		this.customerRepo = nezService;
 	}
 	
 	@InitBinder
@@ -39,34 +47,59 @@ public class CustomerController {
 		if(result.hasErrors()) {
 			return WIEWS_CUSTOMER_CREATE_OR_UPDATE_FORM;
 		}else {
-			this.customerRepository.save(customer);
+			this.customerRepo.save(customer);
 			return "redirect:/customers/" + customer.getId();
 		}
 	}
 	
-	@GetMapping("/customers")
-	public String processFindForm(Customer customer, BindingResult result, Map<String, Object> model) {
-
-		if(customer.getLastName() == null) {
-			customer.setLastName("");
-		}
-		
-		//find customer by lastname
-		Collection<Customer> results = this.customerRepository.findByLastName(customer.getLastName());
-		if (results.isEmpty()) {
-			// no customers found
-			result.rejectValue("lastName", "notFound", "not found");
-			return "customers/findCustomers";
-		}
-		else if (results.size() == 1) {
-			// 1 cusomter found
-			customer = results.iterator().next();
-			return "redirect:/owners/" + customer.getId();
+	@GetMapping("/customers.html")
+	public String showCustomerList(Map<String, Object> model) {
+		Customers customers = new Customers();
+		customers.getCustomers().addAll(this.customerRepo.findAll());
+		model.put("customers", customers);
+		return "customers/customerList";
+	}
+	
+	@RequestMapping("/customers")
+	@ResponseBody
+	public String showResourcesCustomerList() {
+		return customerRepo.findAll().toString();
+	}
+	
+	@GetMapping("customers/{customerId}/edit")
+	public String initUpdateCustomerForm(@PathVariable("customerId") int customerId, Model model) {
+		Customer customer = this.customerRepo.findCustomerById(customerId);
+		model.addAttribute(customer);
+		return WIEWS_CUSTOMER_CREATE_OR_UPDATE_FORM;
+	}
+	
+	@PostMapping("/customers/{customerId}/edit")
+	public String processUpdateCustomerForm(@Valid Customer customer, BindingResult result,
+			@PathVariable("customerId") int customerId) {
+		if (result.hasErrors()) {
+			return WIEWS_CUSTOMER_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-			// multiple customer found
-			model.put("selections", results);
-			return "customers/customersList";
+			customer.setId(customerId);
+			this.customerRepo.save(customer);
+			return "redirect:/customers/{customerId}";
 		}
 	}
+	
+	@GetMapping("/customers/{customerId}")
+	public ModelAndView showCustomer(@PathVariable("customerId") int customerId) {
+		ModelAndView mav = new ModelAndView("customers/customerDetails");
+		Customer customer = this.customerRepo.findCustomerById(customerId);
+		mav.addObject(customer);
+		return mav;
+	}
+	
+	@RequestMapping(name = "/customer/{customerId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_XML_VALUE)
+	public String deleteCustomer(@PathVariable("customerId") int id) {
+		Customer customer = customerRepo.findCustomerById(id);
+		System.out.println(customer);
+		customerRepo.delete(customer);
+		return "deleted";
+	}
+
 }
