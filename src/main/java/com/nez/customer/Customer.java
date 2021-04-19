@@ -1,9 +1,5 @@
 package com.nez.customer;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,8 +9,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.core.style.ToStringCreator;
 
 import com.nez.model.Person;
 import com.nez.order.Order;
@@ -34,6 +28,7 @@ public class Customer extends Person {
 	private String telephone;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	private Set<Order> orders;
+	
 	
 	public String getAddress() {
 		return address;
@@ -62,9 +57,10 @@ public class Customer extends Person {
 	}
 	@Override
 	public String toString() {
-		return new ToStringCreator(this)
-				.append("id", this.getId()).append("new", this.isNew()).append("lastName", this.getLastName())
-				.append("firstName", this.getFirstName()).append("address", this.address).append("city", this.city)
-				.append("telephone", this.telephone).toString();
+		return "Customer [address=" + address + ", city=" + city + ", telephone=" + telephone + "]";
 	}
+
+
+	
+	
 }
