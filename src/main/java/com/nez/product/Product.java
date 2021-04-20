@@ -1,17 +1,12 @@
 package com.nez.product;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 
 import com.nez.model.NamedEntity;
-import com.nez.order.OrderItem;
 import com.nez.supplier.Supplier;
 
 @Entity
@@ -20,11 +15,11 @@ public class Product extends NamedEntity{
 	
 	private String photo;
 	
-	@ManyToOne
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@ManyToOne
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "supplier_id")
 	private Supplier supplier;
 	
@@ -33,10 +28,6 @@ public class Product extends NamedEntity{
 	
 	@DecimalMin(value = "0")
 	private int price;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private Set<OrderItem> orderItems;
-
 	
 	public String getPhoto() {
 		return photo;
@@ -78,14 +69,5 @@ public class Product extends NamedEntity{
 		this.price = price;
 	}
 
-	public Set<OrderItem> getOrderItems() {
-		return orderItems;
-	}
-
-	public void setOrderItems(Set<OrderItem> orderItems) {
-		this.orderItems = orderItems;
-	}
-	
-	
 	
 }
