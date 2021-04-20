@@ -1,7 +1,9 @@
 package com.nez.order;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface OrderItemRepository extends Repository<OrderItem, Integer>{
+@Repository
+public interface OrderItemRepository extends JpaRepository<OrderItem, Integer>{
 
 }
