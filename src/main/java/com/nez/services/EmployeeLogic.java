@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nez.entities.Employee;
+import com.nez.entities.Order;
 import com.nez.repository.EmployeeRepository;
 
 @Component
@@ -13,6 +14,9 @@ public class EmployeeLogic {
 
 	@Autowired
 	EmployeeRepository employeeRepo;
+	
+	@Autowired
+	OrderLogic orderLogic;
 
 	public List<Employee> getAllEmployees() {
 		return employeeRepo.findAll();
@@ -29,8 +33,13 @@ public class EmployeeLogic {
 		return employeeRepo.save(employee);
 	}
 
-	public boolean deleteEmployee(int id) {
+	public boolean deleteEmployeeById(int id) {
 		Employee employee = employeeRepo.getOne(id);
+		if(employee==null) return false;
+		List<Order> orders = orderLogic.getOrdersByEmployeeId(id);
+		for(Order o : orders) {
+			o.setEmployee(null);
+		}
 		employeeRepo.delete(employee);
 		return true;
 	}

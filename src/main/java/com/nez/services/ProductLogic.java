@@ -1,17 +1,11 @@
 package com.nez.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import com.nez.entities.OrderItem;
 import com.nez.entities.Product;
 import com.nez.repository.ProductRepository;
 
@@ -20,9 +14,20 @@ public class ProductLogic {
 
 	@Autowired
 	ProductRepository productRepo;
+	
+	@Autowired
+	OrderItemLogic orderItemLogic;
 
 	public List<Product> getAllProducts() {
 		return productRepo.findAll();
+	}
+
+	public List<Product> getProductByCategoryId(int id) {
+		return productRepo.getProductByCategoryId(id);
+	}
+	
+	public List<Product> getProductBySupplierId(int id) {
+		return productRepo.getProductBySupplierId(id);
 	}
 
 	public Product getProductById(int id) {
@@ -30,7 +35,7 @@ public class ProductLogic {
 	}
 
 	public Product saveProduct(Product product) {
-		if(product.getId() == null) {
+		if (product.getId() == null) {
 			product = generateCode(product);
 		}
 		return productRepo.save(product);
@@ -38,12 +43,18 @@ public class ProductLogic {
 
 	public boolean deleteProduct(int id) {
 		Product product = productRepo.getOne(id);
+		if(product == null) return false;
+		List<OrderItem> orderItems = orderItemLogic.getOrderItemsByProductId(id);
+		for(OrderItem ot : orderItems) {
+			ot.setProduct(null);
+		}
 		productRepo.delete(product);
 		return true;
 	}
 
 	public Product generateCode(Product product) {
-		if (product == null) return null;
+		if (product == null)
+			return null;
 		return product;
 	}
 }

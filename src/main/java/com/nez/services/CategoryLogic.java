@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nez.entities.Category;
+import com.nez.entities.Product;
 import com.nez.repository.CategoryRepository;
 
 @Component
@@ -14,6 +15,9 @@ public class CategoryLogic {
 	@Autowired
 	CategoryRepository categoryRepo;
 
+	@Autowired
+	ProductLogic productLogic;
+	
 	public List<Category> getAllCategorys() {
 		return categoryRepo.findAll();
 	}
@@ -29,8 +33,13 @@ public class CategoryLogic {
 		return categoryRepo.save(category);
 	}
 
-	public boolean deleteCategory(int id) {
+	public boolean deleteCategoryById(int id) {
 		Category category = categoryRepo.getOne(id);
+		if(category == null) return false;
+		List<Product> products = productLogic.getProductByCategoryId(id);
+		for(Product p : products) {
+			p.setCategory(null);
+		}
 		categoryRepo.delete(category);
 		return true;
 	}

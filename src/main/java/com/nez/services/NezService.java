@@ -33,12 +33,12 @@ public class NezService {
 	SupplierLogic supplierLogic;
 
 	// Category
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Category> getAllCategorys() {
 		return categoryLogic.getAllCategorys();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Category getCategoryById(int id) {
 		return categoryLogic.getCategoryById(id);
 	}
@@ -49,17 +49,17 @@ public class NezService {
 	}
 
 	@Transactional
-	public boolean deleteCategory(int id) {
-		return categoryLogic.deleteCategory(id);
+	public boolean deleteCategoryById(int id) {
+		return categoryLogic.deleteCategoryById(id);
 	}
 
 	// Customer
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Customer> getAllCustomers() {
 		return customerLogic.getAllCustomers();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Customer getCustomerById(int id) {
 		return customerLogic.getCustomerById(id);
 	}
@@ -70,17 +70,17 @@ public class NezService {
 	}
 
 	@Transactional
-	public boolean deleteCustomer(int id) {
-		return customerLogic.deleteCustomer(id);
+	public boolean deleteCustomerById(int id) {
+		return customerLogic.deleteCustomerById(id);
 	}
 
 	// Employee
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Employee> getAllEmployees() {
 		return employeeLogic.getAllEmployees();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Employee getEmployeeById(int id) {
 		return employeeLogic.getEmployeeById(id);
 	}
@@ -91,17 +91,17 @@ public class NezService {
 	}
 
 	@Transactional
-	public boolean deleteEmployee(int id) {
-		return employeeLogic.deleteEmployee(id);
+	public boolean deleteEmployeeById(int id) {
+		return employeeLogic.deleteEmployeeById(id);
 	}
 
 	// OrderItem
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<OrderItem> getAllOrderItems() {
 		return orderItemLogic.getAllOrderItems();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public OrderItem getOrderItemById(int id) {
 		return orderItemLogic.getOrderItemById(id);
 	}
@@ -112,17 +112,21 @@ public class NezService {
 	}
 
 	@Transactional
-	public boolean deleteOrderItem(int id) {
-		return orderItemLogic.deleteOrderItem(id);
+	public boolean deleteOrderItemById(int id) {
+		return orderItemLogic.deleteOrderItemById(id);
 	}
 
+	@Transactional(readOnly = true)
+	public List<OrderItem> getOrderItemsByOrderId(int id){
+		return orderItemLogic.getOrderItemsByOrderId(id);
+	}
 	// Order
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Order> getAllOrders() {
 		return orderLogic.getAllOrders();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Order getOrderById(int id) {
 		return orderLogic.getOrderById(id);
 	}
@@ -138,12 +142,12 @@ public class NezService {
 	}
 
 	// Product
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Product> getAllProducts() {
 		return productLogic.getAllProducts();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Product getProductById(int id) {
 		return productLogic.getProductById(id);
 	}
@@ -159,12 +163,12 @@ public class NezService {
 	}
 
 	// Supplier
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Supplier> getAllSuppliers() {
 		return supplierLogic.getAllSuppliers();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Supplier getSupplierById(int id) {
 		return supplierLogic.getSupplierById(id);
 	}

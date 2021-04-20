@@ -16,6 +16,14 @@ public class OrderItemLogic {
 	public List<OrderItem> getAllOrderItems() {
 		return orderItemRepo.findAll();
 	}
+	
+	public List<OrderItem> getOrderItemsByProductId(int id) {
+		return orderItemRepo.getOrderItemsByProductId(id);
+	}
+	
+	public List<OrderItem> getOrderItemsByOrderId(int id){
+		return orderItemRepo.getOrderItemsByOrderId(id);
+	}
 
 	public OrderItem getOrderItemById(int id) {
 		return orderItemRepo.findById(id);
@@ -28,7 +36,7 @@ public class OrderItemLogic {
 		return orderItemRepo.save(orderItem);
 	}
 
-	public boolean deleteOrderItem(int id) {
+	public boolean deleteOrderItemById(int id) {
 		OrderItem orderItem = orderItemRepo.getOne(id);
 		orderItemRepo.delete(orderItem);
 		return true;
