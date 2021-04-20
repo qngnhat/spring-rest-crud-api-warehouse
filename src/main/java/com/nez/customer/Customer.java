@@ -1,17 +1,12 @@
 package com.nez.customer;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
 import com.nez.model.Person;
-import com.nez.order.Order;
 
 @Entity
 @Table(name = "customers")
@@ -26,9 +21,6 @@ public class Customer extends Person {
 	@NotEmpty
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-	private Set<Order> orders;
-	
 	
 	public String getAddress() {
 		return address;
@@ -49,16 +41,13 @@ public class Customer extends Person {
 		this.telephone = telephone;
 	}
 	
-	public Set<Order> getOrders() {
-		return orders;
-	}
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
+
 	@Override
 	public String toString() {
 		return "Customer [address=" + address + ", city=" + city + ", telephone=" + telephone + "]";
 	}
+
+	
 
 
 	
