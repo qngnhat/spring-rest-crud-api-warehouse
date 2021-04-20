@@ -7,5 +7,5 @@ import com.nez.entities.Supplier;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
-
+	public Supplier findById(int id);
 }

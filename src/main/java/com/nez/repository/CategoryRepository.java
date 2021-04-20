@@ -7,5 +7,6 @@ import com.nez.entities.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
-
+	
+	public Category findById(int id);
 }

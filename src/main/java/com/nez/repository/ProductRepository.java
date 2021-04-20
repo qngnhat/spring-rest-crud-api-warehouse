@@ -1,15 +1,20 @@
 package com.nez.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.nez.entities.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>{
-
-	@Query("select p from products p where p.id = :id")
-	public Product getById(@Param("id") int id);
+	public Product findById(int id);
+	
+	@Query(value = "select * from products where category_id = ?1", nativeQuery = true)
+	public List<Product> getProductByCategoryId(int id);
+	
+	@Query(value = "select * from products where supplier_id = ?1", nativeQuery = true)
+	public List<Product> getProductBySupplierId(int id);
 }
