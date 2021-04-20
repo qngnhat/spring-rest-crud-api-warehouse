@@ -38,16 +38,10 @@ public class Customer extends BasePerson {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	
 
 	@Override
 	public String toString() {
 		return "Customer [address=" + address + ", city=" + city + ", telephone=" + telephone + "]";
 	}
-
-	
-
-
-	
 	
 }
