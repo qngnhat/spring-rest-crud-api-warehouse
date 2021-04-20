@@ -1,5 +1,6 @@
 package com.nez.order;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -16,6 +18,7 @@ import javax.validation.constraints.DecimalMin;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nez.customer.Customer;
 import com.nez.employee.Employee;
 import com.nez.model.BaseEntity;
@@ -24,10 +27,6 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name = "Orders")
 public class Order extends BaseEntity {
-	static public enum State {
-		PAID, DUE, CANCEL
-	};
-
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "customer_id", nullable = true)
 	private Customer customer;
@@ -39,10 +38,8 @@ public class Order extends BaseEntity {
 	@NotNull
 	@DecimalMin(value = "0")
 	private int total;
-	@Enumerated(EnumType.STRING)
-	private State state;
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	private LocalDate orderDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private Timestamp orderDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate transactionDate;
 	public Customer getCustomer() {
@@ -77,19 +74,12 @@ public class Order extends BaseEntity {
 		this.total = total;
 	}
 
-	public State getState() {
-		return state;
-	}
 
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public LocalDate getOrderDate() {
+	public Timestamp getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(LocalDate orderDate) {
+	public void setOrderDate(Timestamp orderDate) {
 		this.orderDate = orderDate;
 	}
 

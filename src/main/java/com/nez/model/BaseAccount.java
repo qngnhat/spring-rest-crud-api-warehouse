@@ -9,13 +9,12 @@ import javax.persistence.MappedSuperclass;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
-public class BaseAccount extends BaseEntity{
+public class BaseAccount extends Person{
 	static public enum UserRole {ROLE_Admin, ROLE_User};
 	static public enum Gender {Male, Female};
 	
 	protected String username;
 	protected String password;
-	protected String fullName;
 	protected String email;
 	protected String telephone;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -40,12 +39,6 @@ public class BaseAccount extends BaseEntity{
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getFullName() {
-		return fullName;
-	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
 	}
 	public String getEmail() {
 		return email;

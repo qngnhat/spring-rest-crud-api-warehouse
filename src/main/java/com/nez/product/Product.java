@@ -18,6 +18,8 @@ import com.nez.supplier.Supplier;
 @Table(name = "products")
 public class Product extends NamedEntity{
 	
+	private String photo;
+	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
@@ -25,8 +27,6 @@ public class Product extends NamedEntity{
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
 	private Supplier supplier;
-	
-	private String quantityPerUnit;
 	
 	@DecimalMin(value = "0")
 	private int unitInStock;
@@ -36,6 +36,15 @@ public class Product extends NamedEntity{
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	private Set<OrderItem> orderItems;
+
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
 	public Category getCategory() {
 		return category;
@@ -51,14 +60,6 @@ public class Product extends NamedEntity{
 
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
-	}
-
-	public String getQuantityPerUnit() {
-		return quantityPerUnit;
-	}
-
-	public void setQuantityPerUnit(String quantityPerUnit) {
-		this.quantityPerUnit = quantityPerUnit;
 	}
 
 	public int getUnitInStock() {
