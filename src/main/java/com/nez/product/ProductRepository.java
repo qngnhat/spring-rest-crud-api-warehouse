@@ -1,7 +1,9 @@
 package com.nez.product;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProductRepository extends Repository<Product, Integer>{
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer>{
 
 }
