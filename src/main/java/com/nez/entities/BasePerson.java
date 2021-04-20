@@ -1,11 +1,11 @@
-package com.nez.model;
+package com.nez.entities;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 
 @MappedSuperclass
-public class Person extends BaseEntity{
+public class BasePerson extends BaseEntity{
 
 	@Column(name = "first_name")
 	@NotEmpty

@@ -1,4 +1,4 @@
-package com.nez.model;
+package com.nez.entities;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
-public class BaseAccount extends Person{
+public class BaseAccount extends BasePerson{
 	static public enum UserRole {ROLE_Admin, ROLE_User};
 	static public enum Gender {Male, Female};
 	

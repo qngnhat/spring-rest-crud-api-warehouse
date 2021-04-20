@@ -1,4 +1,4 @@
-package com.nez.model;
+package com.nez.entities;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.nez.order;
+package com.nez.entities;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -12,9 +12,6 @@ import javax.validation.constraints.DecimalMin;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nez.customer.Customer;
-import com.nez.employee.Employee;
-import com.nez.model.BaseEntity;
 import com.sun.istack.NotNull;
 
 @Entity

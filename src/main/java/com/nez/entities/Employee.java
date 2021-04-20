@@ -1,10 +1,8 @@
-package com.nez.employee;
+package com.nez.entities;
 
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import com.nez.model.BaseAccount;
 
 @Entity
 @Table(name = "employees")

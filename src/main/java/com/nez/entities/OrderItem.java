@@ -1,13 +1,10 @@
-package com.nez.order;
+package com.nez.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
-
-import com.nez.model.BaseEntity;
-import com.nez.product.Product;
 
 @Entity
 @Table(name = "Order_items")

@@ -1,4 +1,4 @@
-package com.nez.customer;
+package com.nez.rest.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nez.entities.Customer;
+import com.nez.repository.CustomerRepository;
 
 @RestController
 public class CustomerController {

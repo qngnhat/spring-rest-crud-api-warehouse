@@ -1,9 +1,7 @@
-package com.nez.product;
+package com.nez.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import com.nez.model.NamedEntity;
 
 @Entity
 @Table(name = "categories")
