@@ -1,7 +1,9 @@
 package com.nez.supplier;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface SupplierRepository extends Repository<Supplier, Integer>{
+@Repository
+public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
 
 }
