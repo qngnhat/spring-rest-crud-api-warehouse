@@ -2,17 +2,10 @@ package com.nez.order;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 
@@ -33,8 +26,6 @@ public class Order extends BaseEntity {
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "employee_id", nullable = true)
 	private Employee employee;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-	private Set<OrderItem> orderItems;
 	@NotNull
 	@DecimalMin(value = "0")
 	private int total;
@@ -42,6 +33,7 @@ public class Order extends BaseEntity {
 	private Timestamp orderDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate transactionDate;
+
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -58,14 +50,6 @@ public class Order extends BaseEntity {
 		this.employee = employee;
 	}
 
-	public Set<OrderItem> getOrderItems() {
-		return orderItems;
-	}
-
-	public void setOrderItems(Set<OrderItem> orderItems) {
-		this.orderItems = orderItems;
-	}
-
 	public int getTotal() {
 		return total;
 	}
@@ -73,7 +57,6 @@ public class Order extends BaseEntity {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-
 
 	public Timestamp getOrderDate() {
 		return orderDate;
