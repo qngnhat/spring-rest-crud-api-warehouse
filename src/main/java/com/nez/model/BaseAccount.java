@@ -94,6 +94,12 @@ public class BaseAccount extends Person{
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
+	@Override
+	public String toString() {
+		return "BaseAccount [username=" + username + ", password=" + password + ", email=" + email + ", telephone="
+				+ telephone + ", birthDate=" + birthDate + ", photo=" + photo + ", gender=" + gender + ", address="
+				+ address + ", isVerified=" + isVerified + ", personalId=" + personalId + ", role=" + role + "]";
+	}
 	
 	
 }
