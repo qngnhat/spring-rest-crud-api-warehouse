@@ -26,7 +26,7 @@ public class ProductLogic {
 	}
 
 	public Product getProductById(int id) {
-		return productRepo.getById(id);
+		return productRepo.findById(id);
 	}
 
 	public Product saveProduct(Product product) {
@@ -36,10 +36,10 @@ public class ProductLogic {
 		return productRepo.save(product);
 	}
 
-	public String deleteProduct(int id) {
+	public boolean deleteProduct(int id) {
 		Product product = productRepo.getOne(id);
 		productRepo.delete(product);
-		return "deleted";
+		return true;
 	}
 
 	public Product generateCode(Product product) {
