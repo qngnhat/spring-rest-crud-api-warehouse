@@ -68,7 +68,7 @@ public class NezService {
 
 	@Transactional
 	public boolean deleteCategoryById(int id) {
-		Category category = categoryRepo.getOne(id);
+		Category category = categoryRepo.findById(id);
 		if(category == null) {
 			throw new IllegalArgumentException("category cant found: " + id);
 		}
@@ -101,7 +101,7 @@ public class NezService {
 
 	@Transactional
 	public boolean deleteCustomerById(int id) {
-		Customer customer = customerRepo.getCustomerById(id);
+		Customer customer = customerRepo.findById(id);
 		if(null == customer) {
 			throw new IllegalArgumentException("customer cant found: " + id);
 		}
@@ -134,7 +134,7 @@ public class NezService {
 
 	@Transactional
 	public boolean deleteEmployeeById(int id) {
-		Employee employee = employeeRepo.getOne(id);
+		Employee employee = employeeRepo.findById(id);
 		if(employee==null) {
 			throw new IllegalArgumentException("employee cant found: " + id);
 		}
@@ -167,7 +167,7 @@ public class NezService {
 
 	@Transactional
 	public boolean deleteOrderItemById(int id) {
-		OrderItem orderItem = orderItemRepo.getOne(id);
+		OrderItem orderItem = orderItemRepo.findById(id);
 		if(orderItem == null){
 			throw new IllegalArgumentException("orderItem cant found: " + id);
 		}
@@ -201,7 +201,7 @@ public class NezService {
 
 	@Transactional
 	public boolean deleteOrder(int id) {
-		Order order = orderRepo.getOne(id);
+		Order order = orderRepo.findById(id);
 		if(order == null) {
 			throw new IllegalArgumentException("order cant found: " + id);
 		}
@@ -234,7 +234,7 @@ public class NezService {
 
 	@Transactional
 	public boolean deleteProduct(int id) {
-		Product product = productRepo.getOne(id);
+		Product product = productRepo.findById(id);
 		if(product == null) {
 			throw new IllegalArgumentException("product cant found: " + id);
 		}
@@ -267,7 +267,7 @@ public class NezService {
 
 	@Transactional
 	public boolean deleteSupplier(int id) {
-		Supplier supplier = supplierRepo.getOne(id);
+		Supplier supplier = supplierRepo.findById(id);
 		if(supplier == null) {
 			throw new IllegalArgumentException("supplier cant found: " + id);
 		}
