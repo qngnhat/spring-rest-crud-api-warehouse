@@ -13,173 +13,269 @@ import com.nez.entities.Order;
 import com.nez.entities.OrderItem;
 import com.nez.entities.Product;
 import com.nez.entities.Supplier;
+import com.nez.repository.CategoryRepository;
+import com.nez.repository.CustomerRepository;
+import com.nez.repository.EmployeeRepository;
+import com.nez.repository.OrderItemRepository;
+import com.nez.repository.OrderRepository;
+import com.nez.repository.ProductRepository;
+import com.nez.repository.SupplierRepository;
 
 @Service
 public class NezService {
 
+	//
 	@Autowired
-	CategoryLogic categoryLogic;
+	CategoryRepository categoryRepo;
+	
 	@Autowired
-	CustomerLogic customerLogic;
+	CustomerRepository customerRepo;
+	
 	@Autowired
-	EmployeeLogic employeeLogic;
+	EmployeeRepository employeeRepo;
+	
 	@Autowired
-	OrderItemLogic orderItemLogic;
+	OrderItemRepository orderItemRepo;
+	
 	@Autowired
-	OrderLogic orderLogic;
+	OrderRepository orderRepo;
+	
 	@Autowired
-	ProductLogic productLogic;
+	ProductRepository productRepo;
+	
 	@Autowired
-	SupplierLogic supplierLogic;
-
+	SupplierRepository supplierRepo;
+	//
+	
 	// Category
 	@Transactional(readOnly = true)
 	public List<Category> getAllCategorys() {
-		return categoryLogic.getAllCategorys();
+		return categoryRepo.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public Category getCategoryById(int id) {
-		return categoryLogic.getCategoryById(id);
+		return categoryRepo.findById(id);
 	}
 
 	@Transactional
 	public Category saveCategory(Category category) {
-		return categoryLogic.saveCategory(category);
+		if(category.getId() == null) {
+			return null;
+			}
+		return categoryRepo.save(category);
 	}
 
 	@Transactional
 	public boolean deleteCategoryById(int id) {
-		return categoryLogic.deleteCategoryById(id);
+		Category category = categoryRepo.getOne(id);
+		if(category == null) {
+			throw new IllegalArgumentException("category cant found: " + id);
+		}
+		List<Product> products = productRepo.getProductByCategoryId(id);
+		for(Product p : products) {
+			p.setCategory(null);
+		}
+		categoryRepo.delete(category);
+		return true;
 	}
 
 	// Customer
 	@Transactional(readOnly = true)
 	public List<Customer> getAllCustomers() {
-		return customerLogic.getAllCustomers();
+		return customerRepo.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public Customer getCustomerById(int id) {
-		return customerLogic.getCustomerById(id);
+		return customerRepo.findById(id);
 	}
 
 	@Transactional
 	public Customer saveCustomer(Customer customer) {
-		return customerLogic.saveCustomer(customer);
+		if (customer.getId() == null) {
+			return null;
+		}
+		return customerRepo.save(customer);
 	}
 
 	@Transactional
 	public boolean deleteCustomerById(int id) {
-		return customerLogic.deleteCustomerById(id);
+		Customer customer = customerRepo.getCustomerById(id);
+		if(null == customer) {
+			throw new IllegalArgumentException("customer cant found: " + id);
+		}
+		List<Order> orders = orderRepo.getOrdersByCustomerId(id);
+		for(Order o : orders) {
+			o.setCustomer(null);
+		}
+		customerRepo.delete(customer);
+		return true;
 	}
 
 	// Employee
 	@Transactional(readOnly = true)
 	public List<Employee> getAllEmployees() {
-		return employeeLogic.getAllEmployees();
+		return employeeRepo.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public Employee getEmployeeById(int id) {
-		return employeeLogic.getEmployeeById(id);
+		return employeeRepo.findById(id);
 	}
 
 	@Transactional
 	public Employee saveEmployee(Employee employee) {
-		return employeeLogic.saveEmployee(employee);
+		if (employee.getId() == null) {
+			return null;
+		}
+		return employeeRepo.save(employee);
 	}
 
 	@Transactional
 	public boolean deleteEmployeeById(int id) {
-		return employeeLogic.deleteEmployeeById(id);
+		Employee employee = employeeRepo.getOne(id);
+		if(employee==null) {
+			throw new IllegalArgumentException("employee cant found: " + id);
+		}
+		List<Order> orders = orderRepo.getOrdersByEmployeeId(id);
+		for(Order o : orders) {
+			o.setEmployee(null);
+		}
+		employeeRepo.delete(employee);
+		return true;
 	}
 
 	// OrderItem
 	@Transactional(readOnly = true)
 	public List<OrderItem> getAllOrderItems() {
-		return orderItemLogic.getAllOrderItems();
+		return orderItemRepo.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public OrderItem getOrderItemById(int id) {
-		return orderItemLogic.getOrderItemById(id);
+		return orderItemRepo.findById(id);
 	}
 
 	@Transactional
 	public OrderItem saveOrderItem(OrderItem orderItem) {
-		return orderItemLogic.saveOrderItem(orderItem);
+		if(orderItem.getId() == null) {
+			return null;
+		}
+		return orderItemRepo.save(orderItem);
 	}
 
 	@Transactional
 	public boolean deleteOrderItemById(int id) {
-		return orderItemLogic.deleteOrderItemById(id);
+		OrderItem orderItem = orderItemRepo.getOne(id);
+		if(orderItem == null){
+			throw new IllegalArgumentException("orderItem cant found: " + id);
+		}
+		orderItemRepo.delete(orderItem);
+		return true;
 	}
 
 	@Transactional(readOnly = true)
 	public List<OrderItem> getOrderItemsByOrderId(int id){
-		return orderItemLogic.getOrderItemsByOrderId(id);
+		return orderItemRepo.getOrderItemsByOrderId(id);
 	}
+	
 	// Order
 	@Transactional(readOnly = true)
 	public List<Order> getAllOrders() {
-		return orderLogic.getAllOrders();
+		return orderRepo.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public Order getOrderById(int id) {
-		return orderLogic.getOrderById(id);
+		return orderRepo.findById(id);
 	}
 
 	@Transactional
 	public Order saveOrder(Order order) {
-		return orderLogic.saveOrder(order);
+		if(order.getId() == null) {
+			return null;
+		}
+		return orderRepo.save(order);
 	}
 
 	@Transactional
 	public boolean deleteOrder(int id) {
-		return orderLogic.deleteOrder(id);
+		Order order = orderRepo.getOne(id);
+		if(order == null) {
+			throw new IllegalArgumentException("order cant found: " + id);
+		}
+		List<OrderItem> orderItems = orderItemRepo.getOrderItemsByOrderId(id);
+		for(OrderItem ot : orderItems) {
+			ot.setOrder(null);
+		}
+		orderRepo.delete(order);
+		return true;
 	}
 
 	// Product
 	@Transactional(readOnly = true)
 	public List<Product> getAllProducts() {
-		return productLogic.getAllProducts();
+		return productRepo.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public Product getProductById(int id) {
-		return productLogic.getProductById(id);
+		return productRepo.findById(id);
 	}
 
 	@Transactional
 	public Product saveProduct(Product product) {
-		return productLogic.saveProduct(product);
+		if (product.getId() == null) {
+			return null;
+		}
+		return productRepo.save(product);
 	}
 
 	@Transactional
 	public boolean deleteProduct(int id) {
-		return productLogic.deleteProduct(id);
+		Product product = productRepo.getOne(id);
+		if(product == null) {
+			throw new IllegalArgumentException("product cant found: " + id);
+		}
+		List<OrderItem> orderItems = orderItemRepo.getOrderItemsByProductId(id);
+		for(OrderItem ot : orderItems) {
+			ot.setProduct(null);
+		}
+		productRepo.delete(product);
+		return true;
 	}
 
 	// Supplier
 	@Transactional(readOnly = true)
 	public List<Supplier> getAllSuppliers() {
-		return supplierLogic.getAllSuppliers();
+		return supplierRepo.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public Supplier getSupplierById(int id) {
-		return supplierLogic.getSupplierById(id);
+		return supplierRepo.findById(id);
 	}
 
 	@Transactional
 	public Supplier saveSupplier(Supplier supplier) {
-		return supplierLogic.saveSupplier(supplier);
+		if(supplier.getId() == null) {
+			return null;
+		}
+		return supplierRepo.save(supplier);
 	}
 
 	@Transactional
 	public boolean deleteSupplier(int id) {
-		return supplierLogic.deleteSupplier(id);
+		Supplier supplier = supplierRepo.getOne(id);
+		if(supplier == null) {
+			throw new IllegalArgumentException("supplier cant found: " + id);
+		}
+		List<Product> products = productRepo.getProductBySupplierId(id);
+		for(Product p : products) {
+			p.setSupplier(null);
+		}
+		supplierRepo.delete(supplier);
+		return true;
 	}
 }
