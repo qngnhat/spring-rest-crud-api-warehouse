@@ -38,7 +38,7 @@ public class NezController {
 	public Category getCategoryById(@PathVariable("categoryId") int id) {
 		return service.getCategoryById(id);
 	}
-
+	
 	@PostMapping("category")
 	public Category saveCategory(@RequestBody Category category) {
 		return service.saveCategory(category);
@@ -105,6 +105,7 @@ public class NezController {
 	public boolean deleteEmployeeById(@PathVariable("employeeId") int id) {
 		return service.deleteEmployeeById(id);
 	}
+	
 	// Order
 	@GetMapping("orders")
 	public List<Order> getAllOrders() {
@@ -116,6 +117,16 @@ public class NezController {
 		return service.getOrderById(id);
 	}
 
+	@GetMapping("order/customer/{customerId}")
+	public List<Order> getOrdersByCustomerId(@PathVariable("customerId") int id) {
+		return service.getOrdersItemsByCustomerId(id);
+	}
+	
+	@GetMapping("order/{orderId}/items")
+	public List<OrderItem> getOrderItemsByOrderId(@PathVariable("orderId") int id){
+		return service.getOrderItemsByOrderId(id);
+	}
+	
 	@PostMapping("order")
 	public Order saveOrder(@RequestBody Order order) {
 		return service.saveOrder(order);
@@ -140,7 +151,7 @@ public class NezController {
 	public OrderItem getOrderItemById(@PathVariable("orderItemId") int id) {
 		return service.getOrderItemById(id);
 	}
-
+	
 	@PostMapping("orderItem")
 	public OrderItem saveOrderItem(@RequestBody OrderItem orderItem) {
 		return service.saveOrderItem(orderItem);

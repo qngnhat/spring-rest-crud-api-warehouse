@@ -186,6 +186,11 @@ public class NezService {
 		return orderRepo.findAll();
 	}
 
+	@Transactional
+	public List<Order> getOrdersItemsByCustomerId(int id) {
+		return orderRepo.getOrdersByCustomerId(id);
+	}
+	
 	@Transactional(readOnly = true)
 	public Order getOrderById(int id) {
 		return orderRepo.findById(id);
