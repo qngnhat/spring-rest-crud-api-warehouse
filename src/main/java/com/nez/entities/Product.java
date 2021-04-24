@@ -10,6 +10,11 @@ import javax.validation.constraints.DecimalMin;
 @Table(name = "products")
 public class Product extends NamedEntity{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String photo;
 	
 	@ManyToOne(optional = true)

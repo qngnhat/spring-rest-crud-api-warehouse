@@ -6,9 +6,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
 @Table(name = "customers")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class Customer extends BasePerson {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Column(name = "address")
 	@NotEmpty
 	private String address;

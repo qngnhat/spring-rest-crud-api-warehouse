@@ -9,6 +9,10 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "suppliers")
 public class Supplier extends BasePerson{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Column(name = "address")
 	@NotEmpty
 	private String address;

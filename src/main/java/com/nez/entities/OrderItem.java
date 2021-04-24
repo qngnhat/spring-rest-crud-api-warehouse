@@ -6,12 +6,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "Order_items")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderItem extends BaseEntity{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "order_id")
+	private Order order;
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "product_id")
 	private Product product;

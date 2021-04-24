@@ -139,7 +139,7 @@ public class NezService {
 
 	// OrderItem
 	@Transactional(readOnly = true)
-	public List<OrderItem> getAllOrderItems() {
+	public List<OrderItem> findAllOrderItems() {
 		return orderItemRepo.findAll();
 	}
 
@@ -194,6 +194,7 @@ public class NezService {
 		Order order = orderRepo.findById(id);
 		if(order == null) {
 			throw new IllegalArgumentException("order cant found: " + id);
+			
 		}
 		orderRepo.delete(order);
 		return true;
@@ -201,7 +202,7 @@ public class NezService {
 
 	// Product
 	@Transactional(readOnly = true)
-	public List<Product> getAllProducts() {
+	public List<Product> findAllProducts() {
 		return productRepo.findAll();
 	}
 
@@ -231,7 +232,7 @@ public class NezService {
 
 	// Supplier
 	@Transactional(readOnly = true)
-	public List<Supplier> getAllSuppliers() {
+	public List<Supplier> findAllSuppliers() {
 		return supplierRepo.findAll();
 	}
 

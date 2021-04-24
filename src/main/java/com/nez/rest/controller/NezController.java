@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,7 @@ public class NezController {
 	
 	// Category
 	@GetMapping("categories")
-	public List<Category> getAllCategories() { // change to findAll
+	public List<Category> getAllCategories() { 
 		return service.getAllCategorys();
 	}
 
@@ -60,13 +59,8 @@ public class NezController {
 		return service.getCustomerById(id);
 	}
 	
-	@PostMapping("customer")
-	public Customer saveCustomer(@RequestBody Customer customer) {
-		return service.saveCustomer(customer);
-	}
-	
 	@PutMapping("customer")
-	public Customer updateCustomer(@RequestBody Customer customer) {
+	public Customer saveOrUpdateCustomer(@RequestBody Customer customer) {
 		return service.saveCustomer(customer);
 	}
 	
@@ -85,14 +79,9 @@ public class NezController {
 	public Employee getEmployeeById(@PathVariable("employeeId") int id) {
 		return service.getEmployeeById(id);
 	}
-	
-	@PostMapping("employee")
-	public Employee saveEmployee(@RequestBody Employee employee) {
-		return service.saveEmployee(employee);
-	}
-	
+
 	@PutMapping("employee")
-	public Employee updateEmployee(@RequestBody Employee employee) {
+	public Employee saveOrUpdateEmployee(@RequestBody Employee employee) {
 		return service.saveEmployee(employee);
 	}
 	
@@ -108,7 +97,7 @@ public class NezController {
 	}
 
 	@GetMapping("order/{orderId}")
-	public Order getAllOrders(@PathVariable("orderId") int id) {
+	public Order getOrder(@PathVariable("orderId") int id) {
 		return service.getOrderById(id);
 	}
 
@@ -121,14 +110,9 @@ public class NezController {
 	public List<OrderItem> getOrderItemsByOrderId(@PathVariable("orderId") int id){
 		return service.getOrderItemsByOrderId(id);
 	}
-	
-	@PostMapping("order")
-	public Order saveOrder(@RequestBody Order order) {
-		return service.saveOrder(order);
-	}
 
 	@PutMapping("order")
-	public Order updateOrder(@RequestBody Order order) {
+	public Order saveOrUpdateOrder(@RequestBody Order order) {
 		return service.saveOrder(order);
 	}
 
@@ -136,10 +120,11 @@ public class NezController {
 	public boolean deleteOrder(@PathVariable("orderId") int id) {
 		return service.deleteOrder(id);
 	}
+	
 	// OrderItem
 	@GetMapping("orderItems")
-	public List<OrderItem> getAllOrderItems() {
-		return service.getAllOrderItems();
+	public List<OrderItem> findAllOrderItems() {
+		return service.findAllOrderItems();
 	}
 
 	@GetMapping("orderItem/{orderItemId}")
@@ -147,13 +132,8 @@ public class NezController {
 		return service.getOrderItemById(id);
 	}
 	
-	@PostMapping("orderItem")
-	public OrderItem saveOrderItem(@RequestBody OrderItem orderItem) {
-		return service.saveOrderItem(orderItem);
-	}
-
 	@PutMapping("orderItem")
-	public OrderItem updateOrderItem(@RequestBody OrderItem orderItem) {
+	public OrderItem saveOrUpdateOrderItem(@RequestBody OrderItem orderItem) {
 		return service.saveOrderItem(orderItem);
 	}
 
@@ -161,10 +141,11 @@ public class NezController {
 	public boolean deleteOrderItemById(@PathVariable("orderItemId") int id) {
 		return service.deleteOrderItemById(id);
 	}
+	
 	// Product
 	@GetMapping("products")
-	public List<Product> getAllProducts() {
-		return service.getAllProducts();
+	public List<Product> findAllProducts() {
+		return service.findAllProducts();
 	}
 
 	@GetMapping("product/{productId}")
@@ -172,13 +153,8 @@ public class NezController {
 		return service.getProductById(id);
 	}
 
-	@PostMapping("product")
-	public Product saveProduct(@RequestBody Product product) {
-		return service.saveProduct(product);
-	}
-
 	@PutMapping("product")
-	public Product updateProduct(@RequestBody Product product) {
+	public Product saveOrUpdateProduct(@RequestBody Product product) {
 		return service.saveProduct(product);
 	}
 
@@ -186,10 +162,11 @@ public class NezController {
 	public boolean deleteProduct(@PathVariable("productId") int id) {
 		return service.deleteProduct(id);
 	}
+	
 	// Supplier
 	@GetMapping("suppliers")
-	public List<Supplier> getAllSuppliers() {
-		return service.getAllSuppliers();
+	public List<Supplier> findAllSuppliers() {
+		return service.findAllSuppliers();
 	}
 
 	@GetMapping("supplier/{supplierId}")
@@ -197,13 +174,8 @@ public class NezController {
 		return service.getSupplierById(id);
 	}
 
-	@PostMapping("supplier")
-	public Supplier saveSupplier(@RequestBody Supplier supplier) {
-		return service.saveSupplier(supplier);
-	}
-
 	@PutMapping("supplier")
-	public Supplier updateSupplier(@RequestBody Supplier supplier) {
+	public Supplier saveOrUpdateSupplier(@RequestBody Supplier supplier) {
 		return service.saveSupplier(supplier);
 	}
 

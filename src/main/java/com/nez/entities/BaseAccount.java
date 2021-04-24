@@ -10,6 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @MappedSuperclass
 public class BaseAccount extends BasePerson{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static public enum UserRole {ROLE_Admin, ROLE_User};
 	static public enum Gender {Male, Female};
 	

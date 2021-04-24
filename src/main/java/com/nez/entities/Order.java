@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -15,7 +16,9 @@ import javax.validation.constraints.DecimalMin;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.sun.istack.NotNull;
@@ -23,12 +26,17 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name = "Orders")
 @JsonInclude(value = Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Order extends BaseEntity {
-	@ManyToOne(optional = true)
-	@JoinColumn(name = "customer_id", nullable = true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
-	@ManyToOne(optional = true)
-	@JoinColumn(name = "employee_id", nullable = true)
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;
 	@NotNull
 	@DecimalMin(value = "0")
@@ -38,8 +46,9 @@ public class Order extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate transactionDate;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@JsonBackReference
 	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	public List<OrderItem> getOrderItems() {
@@ -96,5 +105,15 @@ public class Order extends BaseEntity {
 	public void setTransactionDate(LocalDate transactionDate) {
 		this.transactionDate = transactionDate;
 	}
+
+	
+	public Order() {
+	}
+
+	public Order(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+	
+	
 
 }
