@@ -16,10 +16,13 @@ import javax.validation.constraints.DecimalMin;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "Orders")
+@JsonInclude(value = Include.NON_NULL)
 public class Order extends BaseEntity {
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "customer_id", nullable = true)
@@ -36,7 +39,8 @@ public class Order extends BaseEntity {
 	private LocalDate transactionDate;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<OrderItem> orderItems;
+	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	public List<OrderItem> getOrderItems() {
 		return orderItems;

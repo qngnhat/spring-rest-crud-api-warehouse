@@ -103,8 +103,8 @@ public class NezController {
 	
 	// Order
 	@GetMapping("orders")
-	public List<Order> getAllOrders() {
-		return service.getAllOrders();
+	public List<Order> findAllOrders() {
+		return service.findAllOrders();
 	}
 
 	@GetMapping("order/{orderId}")

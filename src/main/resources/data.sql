@@ -43,9 +43,4 @@ insert into products values (13, 'stan smith shoes', 'stan-smith-shoes.jpg', 240
 insert into products values (14, 'solematch bounce tennis shoes', 'solematch-bounce-tennis-shoes.jpg', 3000000, 399, 5, 4);
 insert into products values (15, 'courtjam bounce shoes', 'courtjam-bounce-shoes.png', 2400000, 399, 6, 4);
 
-insert into orders values (1, '2021-04-12 15:00:00', 4300000, '2021-04-14', 1, 1);
-insert into orders values (2, '2021-04-12 09:20:00', 4300000, '2021-04-14', 1, 2);
-insert into orders values (3, '2021-04-12 10:30:00', 4300000, '2021-04-14', 2, 3);
-insert into orders values (4, '2021-04-12 11:40:00', 4300000, '2021-04-14', 3, 4);
-
 

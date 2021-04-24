@@ -170,7 +170,7 @@ public class NezService {
 	
 	// Order
 	@Transactional(readOnly = true)
-	public List<Order> getAllOrders() {
+	public List<Order> findAllOrders() {
 		return orderRepo.findAll();
 	}
 
