@@ -60,9 +60,6 @@ public class NezService {
 
 	@Transactional
 	public Category saveCategory(Category category) {
-		if(category.getId() == null) {
-			return null;
-			}
 		return categoryRepo.save(category);
 	}
 
@@ -93,9 +90,6 @@ public class NezService {
 
 	@Transactional
 	public Customer saveCustomer(Customer customer) {
-		if (customer.getId() == null) {
-			return null;
-		}
 		return customerRepo.save(customer);
 	}
 
@@ -126,9 +120,6 @@ public class NezService {
 
 	@Transactional
 	public Employee saveEmployee(Employee employee) {
-		if (employee.getId() == null) {
-			return null;
-		}
 		return employeeRepo.save(employee);
 	}
 
@@ -159,9 +150,6 @@ public class NezService {
 
 	@Transactional
 	public OrderItem saveOrderItem(OrderItem orderItem) {
-		if(orderItem.getId() == null) {
-			return null;
-		}
 		return orderItemRepo.save(orderItem);
 	}
 
@@ -198,9 +186,6 @@ public class NezService {
 
 	@Transactional
 	public Order saveOrder(Order order) {
-		if(order.getId() == null) {
-			return null;
-		}
 		return orderRepo.save(order);
 	}
 
@@ -209,10 +194,6 @@ public class NezService {
 		Order order = orderRepo.findById(id);
 		if(order == null) {
 			throw new IllegalArgumentException("order cant found: " + id);
-		}
-		List<OrderItem> orderItems = orderItemRepo.getOrderItemsByOrderId(id);
-		for(OrderItem ot : orderItems) {
-			ot.setOrder(null);
 		}
 		orderRepo.delete(order);
 		return true;
@@ -231,9 +212,6 @@ public class NezService {
 
 	@Transactional
 	public Product saveProduct(Product product) {
-		if (product.getId() == null) {
-			return null;
-		}
 		return productRepo.save(product);
 	}
 
@@ -264,9 +242,6 @@ public class NezService {
 
 	@Transactional
 	public Supplier saveSupplier(Supplier supplier) {
-		if(supplier.getId() == null) {
-			return null;
-		}
 		return supplierRepo.save(supplier);
 	}
 

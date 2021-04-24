@@ -30,7 +30,7 @@ public class NezController {
 	
 	// Category
 	@GetMapping("categories")
-	public List<Category> getAllCategories() {
+	public List<Category> getAllCategories() { // change to findAll
 		return service.getAllCategorys();
 	}
 
@@ -39,13 +39,8 @@ public class NezController {
 		return service.getCategoryById(id);
 	}
 	
-	@PostMapping("category")
-	public Category saveCategory(@RequestBody Category category) {
-		return service.saveCategory(category);
-	}
-
 	@PutMapping("category")
-	public Category updateCategory(@RequestBody Category category) {
+	public Category saveOrUpdateCategory(@RequestBody Category category) {
 		return service.saveCategory(category);
 	}
 

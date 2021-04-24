@@ -10,19 +10,11 @@ import javax.validation.constraints.DecimalMin;
 @Table(name = "Order_items")
 public class OrderItem extends BaseEntity{
 	@ManyToOne(optional = true)
-	@JoinColumn(name = "order_id")
-	private Order order;
-	@ManyToOne(optional = true)
 	@JoinColumn(name = "product_id")
 	private Product product;
 	@DecimalMin(value = "0")
 	private int quantity;
-	public Order getOrder() {
-		return order;
-	}
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+	
 	public Product getProduct() {
 		return product;
 	}

@@ -2,10 +2,14 @@ package com.nez.entities;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 
@@ -30,6 +34,24 @@ public class Order extends BaseEntity {
 	private Timestamp orderDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate transactionDate;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderItem> orderItems;
+	
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+	
+	public void setOrderItems(OrderItem item) {
+		if(orderItems==null) {
+			orderItems = new ArrayList<>();
+		}
+		this.orderItems.add(item);
+	}
 
 	public Customer getCustomer() {
 		return customer;

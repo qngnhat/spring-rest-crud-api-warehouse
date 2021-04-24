@@ -48,11 +48,4 @@ insert into orders values (2, '2021-04-12 09:20:00', 4300000, '2021-04-14', 1, 2
 insert into orders values (3, '2021-04-12 10:30:00', 4300000, '2021-04-14', 2, 3);
 insert into orders values (4, '2021-04-12 11:40:00', 4300000, '2021-04-14', 3, 4);
 
-insert into order_items values (1, 1, 1, 2);
-insert into order_items values (2, 1, 1, 3);
-insert into order_items values (3, 1, 2, 2);
-insert into order_items values (4, 1, 2, 3);
-insert into order_items values (5, 1, 3, 2);
-insert into order_items values (6, 1, 3, 3);
-insert into order_items values (7, 1, 4, 2);
-insert into order_items values (8, 1, 4, 3);
+
